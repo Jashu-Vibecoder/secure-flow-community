@@ -1,16 +1,41 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useCallback } from "react";
+import { SecurePRNG } from "@/lib/prng";
+import ParticleBackground from "@/components/ParticleBackground";
+import HeroSection from "@/components/HeroSection";
+import SeedInput from "@/components/SeedInput";
+import NumberGenerator from "@/components/NumberGenerator";
+import OutputStream from "@/components/OutputStream";
+import TestingPanel from "@/components/TestingPanel";
+import ComparisonSection from "@/components/ComparisonSection";
+import CryptoDemo from "@/components/CryptoDemo";
+import Footer from "@/components/Footer";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
+  const [prng, setPrng] = useState<SecurePRNG | null>(null);
+  const [numbers, setNumbers] = useState<number[]>([]);
+
+  const handleInit = useCallback((newPrng: SecurePRNG) => {
+    setPrng(newPrng);
+    setNumbers([]);
+  }, []);
+
+  const handleGenerate = useCallback((num: number) => {
+    setNumbers(prev => [...prev, num]);
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
+    <div className="min-h-screen relative overflow-hidden">
+      <ParticleBackground />
+      <HeroSection />
+      <SeedInput onInit={handleInit} />
+      <NumberGenerator prng={prng} onGenerate={handleGenerate} />
+      <OutputStream numbers={numbers} />
+      <TestingPanel numbers={numbers} />
+      <ComparisonSection />
+      <CryptoDemo />
+      <Footer />
     </div>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
