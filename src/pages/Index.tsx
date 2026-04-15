@@ -8,6 +8,7 @@ import OutputStream from "@/components/OutputStream";
 import TestingPanel from "@/components/TestingPanel";
 import ComparisonSection from "@/components/ComparisonSection";
 import CryptoDemo from "@/components/CryptoDemo";
+import SourceCode from "@/components/SourceCode";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -33,6 +34,7 @@ const Index = () => {
       <TestingPanel numbers={numbers} />
       <ComparisonSection />
       <CryptoDemo />
+      <SourceCode />
       <Footer />
     </div>
   );
