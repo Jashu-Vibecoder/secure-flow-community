@@ -34,6 +34,7 @@ const Index = () => {
       <TestingPanel numbers={numbers} />
       <ComparisonSection />
       <CryptoDemo />
+      <SourceCode />
       <Footer />
     </div>
   );
