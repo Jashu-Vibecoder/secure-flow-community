@@ -2,77 +2,38 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Code, Copy, Check } from "lucide-react";
 
-const PYTHON_CODE = `import hashlib  # Library used for SHA-256 hashing
+const PYTHON_CODE = `import hashlib
 
 class SecurePRNG:
-    """
-    SecurePRNG implements a pseudo-random number generator
-    using SHA-256 hashing.
-    The generator uses an internal state (seed) which is
-    continuously updated using hashing to produce a stream
-    of random-like numbers.
-    """
 
     def __init__(self, seed):
-        """
-        Constructor to initialize the PRNG.
-        Parameters:
-        seed (str): Initial input used to start the random generation.
-        """
-        # Convert seed string to bytes and store as internal state
         self.state = seed.encode()
 
     def generate(self):
-        """
-        Generates a large pseudo-random integer using SHA-256.
-        Process:
-        1. Hash current state
-        2. Convert hash to integer
-        3. Update state with new hash
-        Returns:
-        int: A large pseudo-random number
-        """
-        # Apply SHA-256 hashing on current state
         hash_output = hashlib.sha256(self.state).hexdigest()
-
-        # Convert hexadecimal hash to integer
         number = int(hash_output, 16)
-
-        # Update internal state for next iteration
-        # This ensures new random output each time
         self.state = hash_output.encode()
-
         return number
 
     def generate_in_range(self, low, high):
-        """
-        Generates a pseudo-random number within a given range.
-        Parameters:
-        low (int): Lower bound
-        high (int): Upper bound
-        Returns:
-        int: Random number between low and high (inclusive)
-        """
-        # Generate a large random number
         num = self.generate()
-
-        # Use modulo operation to limit the number within range
         return low + (num % (high - low + 1))
 
-# ------------------ TESTING SECTION ------------------
-"""
-This section demonstrates the working of the PRNG.
-It initializes the generator and prints 10 random numbers.
-"""
+# ------------------ USER INPUT ------------------
 
-# Initialize PRNG with a seed value
-prng = SecurePRNG("my_secure_seed")
+seed = input("Enter seed value: ")
+low = int(input("Enter lower limit: "))
+high = int(input("Enter upper limit: "))
+count = int(input("How many random numbers to generate? "))
 
-print("Random Numbers:")
-
-# Generate and print 10 random numbers between 0 and 10
-for i in range(10):
-    print(prng.generate_in_range(0, 10))`;
+# Validation
+if low > high:
+    print("Invalid range! Lower limit must be <= upper limit.")
+else:
+    prng = SecurePRNG(seed)
+    print("\\nRandom Numbers:")
+    for i in range(count):
+        print(prng.generate_in_range(low, high))`;
 
 const SourceCode = () => {
   const [copied, setCopied] = useState(false);
@@ -110,7 +71,7 @@ const SourceCode = () => {
           </button>
         </div>
 
-        <div className="overflow-auto max-h-[500px] rounded-xl bg-background/50 border border-glass-border p-4">
+        <div className="rounded-xl bg-background/50 border border-glass-border p-4">
           <pre className="text-xs font-mono leading-relaxed text-muted-foreground whitespace-pre">
             {PYTHON_CODE.split("\n").map((line, i) => (
               <div key={i} className="flex">
