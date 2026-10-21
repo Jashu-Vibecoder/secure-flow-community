@@ -15,7 +15,7 @@
 - **Randomness Testing** — Built-in frequency test (bit balance) and repetition test (uniqueness), each with live charts
 - **Distribution Comparison** — Visual side-by-side of the SHA-256 PRNG's output distribution vs. a standard LCG
 - **Crypto Demo** — See a PRNG-derived key/IV drive a simple encrypt → ciphertext → decrypt flow
-- **Reference Implementation** — The original Python source the TypeScript generator was ported from, included for reference
+- **Multi-language Source Code** — Switch between JavaScript, Python, TypeScript, Kotlin, Java, HTML/CSS, and Dart examples
 - Animated UI with Framer Motion and a particle background
 
 ## 🧠 How It Works
